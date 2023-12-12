@@ -1,2 +1,2 @@
-# esturide-server
-Backend implement
+# ESTU-RIDE Service
+Backend implement in Django
