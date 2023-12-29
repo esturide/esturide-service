@@ -26,7 +26,7 @@ Ensure you have the latest versions of [Docker](https://www.docker.com/get-start
 
 1. **Clone the Repository**:
 ```
-git clone https://github.com/your-repo/esturide-backend.git
+git clone https://github.com/esturide/esturide-backend.git
 cd esturide-backend
 ```
 
