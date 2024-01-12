@@ -34,12 +34,13 @@ def create_user(user:schemas.UserCreate,db:Session=Depends(get_db)):
             raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error")
 
 @router.get("/",response_model=List[schemas.UserOut])
-def get_users(db: Session=Depends(get_db)):
+def get_users(db: Session=Depends(get_db),current_user= Depends(oauth2.get_current_user)):
     users=db.query(models.User).all()
+    print(current_user.email)
     return users
 
 @router.get("/{id}",response_model=schemas.UserOut)
-def get_user(id:int,db:Session=Depends(get_db)):
+def get_user(id:int,db:Session=Depends(get_db),current_user= Depends(oauth2.get_current_user)):
     user=db.query(models.User).filter(models.User.id==id).first()
 
     if not user:
@@ -48,7 +49,7 @@ def get_user(id:int,db:Session=Depends(get_db)):
     return user
 
 @router.put("/{id}")
-def update_post(id:int,updated_user:schemas.UserCreate,db: Session=Depends(get_db)):
+def update_post(id:int,updated_user:schemas.UserCreate,db: Session=Depends(get_db),current_user= Depends(oauth2.get_current_user)):
     try:
         user_query=db.query(models.User).filter(models.User.id==id)
         user=user_query.first()
@@ -69,7 +70,7 @@ def update_post(id:int,updated_user:schemas.UserCreate,db: Session=Depends(get_d
             raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error")
 
 @router.patch("/{id}")
-def update_post(id:int,updated_user:schemas.UserCreate,db: Session=Depends(get_db)):
+def update_post(id:int,updated_user:schemas.UserCreate,db: Session=Depends(get_db),current_user= Depends(oauth2.get_current_user)):
     try:
         user_query=db.query(models.User).filter(models.User.id==id)
         user=user_query.first()
@@ -90,7 +91,7 @@ def update_post(id:int,updated_user:schemas.UserCreate,db: Session=Depends(get_d
             raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error")
 
 @router.delete("/{id}",status_code=status.HTTP_204_NO_CONTENT)
-def delete_user(id:int,db: Session=Depends(get_db)):
+def delete_user(id:int,db: Session=Depends(get_db),current_user= Depends(oauth2.get_current_user)):
 
     user=db.query(models.User).filter(models.User.id==id)
     if user.first==None:
