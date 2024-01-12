@@ -1,2 +1,4 @@
-fastapi
-uvicorn[standard]
+fastapi[all]
+sqlalchemy
+passlib[bcrypt]
+python-jose[cryptografy]
