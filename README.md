@@ -55,8 +55,46 @@ Once the application is running, visit the `/docs` endpoint (e.g., http://localh
 
 Contributions are what make the open-source community an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
+### Setting Up Your Development Environment
+
+Before you start contributing, it's important to set up your development environment. This includes installing necessary tools and configuring pre-commit hooks to ensure code quality.
+
+#### Pre-Commit Hooks
+
+To maintain code quality and consistency, we use pre-commit hooks. Follow these steps to set up pre-commit hooks in your local development environment:
+
+1. **Install Pre-Commit**:
+   - Ensure you have Python installed on your system.
+   - Install pre-commit globally using pip:
+     ```
+     pip install pre-commit
+     ```
+
+2. **Clone the Repository** (if not already done):
+   ```
+   git clone https://github.com/esturide/esturide-backend.git
+   cd esturide-backend
+   ```
+
+3. **Set Up Pre-Commit Hooks**:
+   - In the root directory of the cloned repository, run:
+     ```
+     pre-commit install
+     ```
+   - This will install the pre-commit hooks defined in the `.pre-commit-config.yaml` file into your local repository.
+
+4. **Usage**:
+   - Pre-commit hooks will now run automatically on the files you've staged whenever you commit.
+   - You can manually run the hooks on all files in the repository at any time with:
+     ```
+     pre-commit run --all-files
+     ```
+
+### Creating a Pull Request with your changes
+
+Now that you have done some changes and want to merge them in our repository, feel free to:
+
 1. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
 2. Commit your Changes (`git commit -m "Add some AmazingFeature"`)
 3. Push to the Branch (`git push origin feature/AmazingFeature`)
 4. Open a Pull Request
-
