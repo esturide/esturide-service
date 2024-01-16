@@ -9,3 +9,4 @@ vscode/
 *.png
 *.toml
 requirements-dev.txt
+*.sqlite
