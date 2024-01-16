@@ -2,36 +2,37 @@ exclude: '^\.git/|.*\.md$|.*\.txt$|.*\.json$|.*\.xml$'
 repos:
   # Basic pre-commit checks
   - repo: 'https://github.com/pre-commit/pre-commit-hooks'
-    rev: v4.3.0  # Use the latest stable version
+    rev: v4.3.0  # 🚀 Use the latest stable version
     hooks:
       - id: trailing-whitespace
+        name: 'Trim Trailing Whitespace 🧹'
       - id: check-merge-conflict
+        name: 'Check for Merge Conflicts 🚩'
       - id: mixed-line-ending
+        name: 'Fix Mixed Line Ending 🔄'
       - id: end-of-file-fixer
+        name: 'Fix End of Files 📝'
 
-  # Remove unused Python imports
-  - repo: 'https://github.com/myint/autoflake'
-    rev: v2.1.1  # Use the latest stable version
+  # Black - Code Formatting
+  - repo: https://github.com/psf/black
+    rev: 22.3.0  # 🎨 Specify the version of Black you want to use
     hooks:
-      - id: autoflake
-        args: ['--in-place', '--remove-all-unused-imports']
+      - id: black
+        name: 'Black (Code Formatter) 🖤'
+        language_version: python3.10  # Specify the Python version
 
-  # Sort Python imports
+  # isort - Sorting Imports
   - repo: 'https://github.com/PyCQA/isort'
-    rev: 5.12.0  # Use the latest stable version
+    rev: 5.12.0  # 📚 Use the latest stable version
     hooks:
       - id: isort
+        name: 'isort (Imports Sorter) 🗂'
         args: ['--profile', 'black']
 
-  # Black, but with a comparison to the current state
-  - repo: 'https://github.com/akaihola/darker'
-    rev: 1.7.1  # Use the latest stable version
-    hooks:
-      - id: darker
-
-   # MyPy - Static Type Checking
+  # MyPy - Static Type Checking
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.910  # Use the latest version of MyPy
+    rev: v0.910  # 🔍 Use the latest version of MyPy
     hooks:
       - id: mypy
+        name: 'MyPy (Type Checker) 🔎'
         additional_dependencies: [types-requests]  # Add additional dependencies if needed
