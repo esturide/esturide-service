@@ -1,11 +1,7 @@
-from typing import List, Optional
+from fastapi import FastAPI
 
-from fastapi import Body, Depends, FastAPI, HTTPException, Response, status
-from pydantic import BaseModel
-from sqlalchemy.orm import Session
-
-from . import models, schemas, utils
-from .config.database import SessionLocal, engine, get_db
+from . import models
+from .config.database import engine
 from .routers import auth, user
 
 models.Base.metadata.create_all(bind=engine)

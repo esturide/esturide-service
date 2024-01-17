@@ -1,12 +1,12 @@
 from re import search
 from typing import List
 
-from fastapi import APIRouter, Body, Depends, FastAPI, HTTPException, Response, status
+from fastapi import APIRouter, Depends, HTTPException, Response, status
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from .. import models, oauth2, schemas, utils
-from ..config.database import SessionLocal, get_db
+from ..config.database import get_db
 
 # Prefix and tag for this router
 # Prefix: localhost/users/
@@ -79,7 +79,7 @@ def update_user_put(
     try:
         user_query = db.query(models.User).filter(models.User.id == id)
         user = user_query.first()
-        if user == None:
+        if user is None:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"User with id: {id} does not exist",
@@ -118,7 +118,7 @@ def update_user_patch(
     try:
         user_query = db.query(models.User).filter(models.User.id == id)
         user = user_query.first()
-        if user == None:
+        if user is None:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"User with id: {id} does not exist",

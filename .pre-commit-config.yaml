@@ -13,6 +13,14 @@ repos:
       - id: end-of-file-fixer
         name: 'Fix End of Files 📝'
 
+    # Autoflake - Remove Unused Imports
+  - repo: https://github.com/PyCQA/autoflake
+    rev: v2.2.1
+    hooks:
+      - id: autoflake
+        name: 'Autoflake (Remove Unused Imports) 🧹'
+        args: [--remove-all-unused-imports, --in-place]
+
   # Black - Code Formatting
   - repo: https://github.com/psf/black
     rev: 22.3.0  # 🎨 Specify the version of Black you want to use

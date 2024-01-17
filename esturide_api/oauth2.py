@@ -9,10 +9,14 @@ from . import models, schemas
 from .config import database
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
-# There are 3 pieces of information that we need for
-# the token,they are:
-# -Secret_key -Algorithm -Expiration
 
+"""
+There are 3 pieces of information that we need for
+the token,they are:
+- Secret_key
+- Algorithm
+- Expiration
+"""
 SECRET_KEY = "ThisLaKeySecreta"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
@@ -47,7 +51,7 @@ def get_current_user(
 ):
     credentials_exception = HTTPException(
         status_code=status.HTTP_404_NOT_FOUND,
-        detail=f"Could not validate credentials",
+        detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
 
