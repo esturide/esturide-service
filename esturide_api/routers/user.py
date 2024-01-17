@@ -1,12 +1,12 @@
 from re import search
 from typing import List
 
-from fastapi import APIRouter, Body, Depends, FastAPI, HTTPException, Response, status
+from fastapi import APIRouter, Depends, HTTPException, Response, status
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from .. import models, oauth2, schemas, utils
-from ..config.database import SessionLocal, get_db
+from ..config.database import get_db
 
 # Prefix and tag for this router
 # Prefix: localhost/users/
