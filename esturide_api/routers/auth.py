@@ -14,8 +14,6 @@ def login(
     db: Session = Depends(database.get_db),
 ):
 
-    # username=
-    # password=
     user = (
         db.query(models.User)
         .filter(models.User.email == user_credentials.username)
@@ -24,12 +22,12 @@ def login(
 
     if not user:
         raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN, detail=f"Invalid credentials"
+            status_code=status.HTTP_403_FORBIDDEN, detail="Invalid credentials"
         )
 
     if not utils.verify(user_credentials.password, user.password):
         raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN, detail=f"Invalid credentials"
+            status_code=status.HTTP_403_FORBIDDEN, detail="Invalid credentials"
         )
 
     # Create a token
