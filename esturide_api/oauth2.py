@@ -5,8 +5,8 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from sqlalchemy.orm import Session
 
-from . import models, schemas
-from .config import database
+from esturide_api import models, schemas
+from esturide_api.config import database
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
@@ -36,7 +36,7 @@ def create_access_token(data: dict):
 def verify_access_token(token: OAuth2PasswordBearer, credentials_exception):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        user_id = str(payload.get("user_id"))  # Convertir a string si es un entero
+        user_id = str(payload.get("user_id"))
         if user_id is None:
             raise credentials_exception
         token_data = schemas.TokenData(id=user_id)

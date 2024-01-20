@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
-from .. import models, oauth2, schemas, utils
-from ..config import database
+from esturide_api import models, oauth2, schemas, utils
+from esturide_api.config import database
 
 router = APIRouter(tags=["Authentication"])
 
@@ -30,7 +30,6 @@ def login(
             status_code=status.HTTP_403_FORBIDDEN, detail="Invalid credentials"
         )
 
-    # Create a token
     acces_token = oauth2.create_access_token(data={"user_id": user.id})
-    # Return token
+
     return {"access_token": acces_token, "token_type": "bearer"}
