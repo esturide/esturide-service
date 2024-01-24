@@ -1,31 +1,28 @@
 from re import search
 from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException, Response, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
-from .. import models, oauth2, schemas, utils
-from ..config.database import get_db
+from esturide_api import models, oauth2, schemas, utils
+from esturide_api.config.database import get_db
 
-# Prefix and tag for this router
-# Prefix: localhost/users/
 router = APIRouter(prefix="/users", tags=["Users"])
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     try:
-        # Hash the password
         hashed_password = utils.hash(user.password)
         user.password = hashed_password
         new_user = models.User(**user.dict())
         db.add(new_user)
         db.commit()
-        return "Successful!!"
+        return new_user
+
     except IntegrityError as e:
         error_str = str(e)
-        # Si hay una violación de la restricción UNIQUE, lanzar una HTTPException
         if search("UNIQUE constraint failed: users.email", error_str):
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
@@ -90,7 +87,6 @@ def update_user_put(
         return user_query.first()
     except IntegrityError as e:
         error_str = str(e)
-        # Si hay una violación de la restricción UNIQUE, lanzar una HTTPException
         if search("UNIQUE constraint failed: users.email", error_str):
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
@@ -124,12 +120,20 @@ def update_user_patch(
                 detail=f"User with id: {id} does not exist",
             )
 
-        user_query.update(updated_user.dict(), synchronize_session=False)
+        user_attributes = [attr.name for attr in models.User.__table__.columns]
+
+        for attribute in user_attributes:
+            if (
+                hasattr(updated_user, attribute)
+                and getattr(updated_user, attribute) is not None
+            ):
+                setattr(user, attribute, getattr(updated_user, attribute))
+
         db.commit()
+        db.refresh(user)
         return user_query.first()
     except IntegrityError as e:
         error_str = str(e)
-        # Si hay una violación de la restricción UNIQUE, lanzar una HTTPException
         if search("UNIQUE constraint failed: users.email", error_str):
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
@@ -147,13 +151,12 @@ def update_user_patch(
             )
 
 
-@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{id}", status_code=status.HTTP_200_OK)
 def delete_user(
     id: int,
     db: Session = Depends(get_db),
     current_user=Depends(oauth2.get_current_user),
 ):
-
     user = db.query(models.User).filter(models.User.id == id)
     if user.first() is None:
         raise HTTPException(
@@ -163,4 +166,4 @@ def delete_user(
 
     user.delete(synchronize_session=False)
     db.commit()
-    return Response(status_code=status.HTTP_204_NO_CONTENT)
+    return {"message": f"User with id {id} was successfully deleted"}

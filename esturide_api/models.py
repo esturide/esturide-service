@@ -1,6 +1,6 @@
 from sqlalchemy import Boolean, Column, Integer, String
 
-from .config.database import Base
+from esturide_api.config.database import Base
 
 
 class User(Base):
