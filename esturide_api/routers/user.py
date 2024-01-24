@@ -1,12 +1,12 @@
 from re import search
 from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException, Response, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from esturide_api import models, oauth2, schemas, utils
-from esturide_api.config.database import SessionLocal, get_db
+from esturide_api.config.database import get_db
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
