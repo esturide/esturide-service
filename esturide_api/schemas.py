@@ -1,15 +1,28 @@
+from datetime import date, timedelta
 from typing import Optional
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, validator
 
 
 class UserCreate(BaseModel):
-    email: EmailStr
     firstname: str
-    middlename: str
-    lastname: str
-    curp: str
+    maternal_surname: str
+    paternal_surname: str
     password: str
+    birth_date: date
+    school_code: str
+    email: EmailStr
+    curp: str
+
+    @validator("birth_date")
+    def validate_birth_date(
+        cls, value: date
+    ):  # Corregido: añade 'date' como tipo de parámetro
+        today = date.today()
+        minimum_age = today - timedelta(days=365 * 18)
+        if value > minimum_age:
+            raise ValueError("The person must be of legal age")
+        return value
 
 
 class UserUpdatePut(BaseModel):
