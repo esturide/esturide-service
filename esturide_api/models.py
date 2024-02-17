@@ -70,12 +70,9 @@ class Passenger(Base):
 
 class UserScore(Base):
     __tablename__ = "user_scores"
-    passenger_id = Column(
-        Integer, ForeignKey("passengers.id"), nullable=False, primary_key=True
-    )
-    driver_id = Column(
-        Integer, ForeignKey("drivers.id"), nullable=False, primary_key=True
-    )
+    id = Column(Integer, primary_key=True)
+    passenger_id = Column(Integer, ForeignKey("passengers.id"), nullable=False)
+    driver_id = Column(Integer, ForeignKey("drivers.id"), nullable=False)
     stars = Column(Integer, nullable=False)
     comment = Column(Text, nullable=False)
     review_type = Column(
