@@ -4,3 +4,5 @@ passlib[bcrypt]
 python-jose[cryptografy]
 pytest
 psycopg2
+factory_boy
+faker
