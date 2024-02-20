@@ -23,7 +23,7 @@ def generate_user_scores(db: Session):
     user_score = db.query(UserScore).first()
 
     if user_score:
-        return "This table it's already populated."
+        return "User scores table it's already populated."
 
     travels = db.query(Travel).all()
 
@@ -52,3 +52,4 @@ def generate_user_scores(db: Session):
             )
             db.add(passenger_to_driver_review)
     db.commit()
+    return "User scores it's being populated"

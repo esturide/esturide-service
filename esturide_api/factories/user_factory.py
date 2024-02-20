@@ -25,7 +25,7 @@ def create_dummy_users(db: Session, num_users: int = 100):
     user = db.query(User).first()
 
     if user:
-        return "This table it's already populated"
+        return "Users table it's already populated"
 
     for i in range(num_users):
         user = UserFactory.create()
@@ -35,3 +35,4 @@ def create_dummy_users(db: Session, num_users: int = 100):
             user.valid_user = False
         db.add(user)
     db.commit()
+    return "Users table is being populated"

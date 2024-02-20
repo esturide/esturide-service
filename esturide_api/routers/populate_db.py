@@ -16,13 +16,13 @@ router = APIRouter(tags=["Populate"])
 @router.post("/populateDB")
 def populateDB(db: Session = Depends(get_db)):
 
-    create_dummy_users(db)
-    create_passengers_for_valid_user(db)
-    create_dummy_drivers(db)
-    create_automobiles(db)
-    create_multiple_travels(db)
-    generate_user_scores(db)
-    return "DB populated"
+    print(create_dummy_users(db))
+    print(create_passengers_for_valid_user(db))
+    print(create_dummy_drivers(db))
+    print(create_automobiles(db))
+    print(create_multiple_travels(db))
+    print(generate_user_scores(db))
+    return {"message": "DB populated"}
 
 
 @router.delete("/clearDB")
@@ -33,6 +33,5 @@ def clearDB(db: Session = Depends(get_db)):
     db.query(Driver).delete()
     db.query(Passenger).delete()
     db.query(User).delete()
-    # Confirmar los cambios
     db.commit()
-    return "DB cleared"
+    return {"message": "DB cleared"}

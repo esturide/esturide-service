@@ -15,7 +15,7 @@ class DriverFactory(Factory):
 def create_dummy_drivers(db: Session, num_drivers: int = 25):
     driver = db.query(Driver).first()
     if driver:
-        return "This table it's already populated."
+        return "Drivers table it's already populated."
 
     valid_users = db.query(User).filter(User.valid_user == True).all()
 
@@ -30,3 +30,4 @@ def create_dummy_drivers(db: Session, num_drivers: int = 25):
         num_created += 1
 
     db.commit()
+    return "Drivers table is being populated"

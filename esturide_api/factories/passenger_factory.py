@@ -16,7 +16,7 @@ def create_passengers_for_valid_user(db: Session):
     passenger = db.query(Passenger).first()
 
     if passenger:
-        return "This table it's already populated."
+        return "Passengers table it's already populated."
 
     for user in valid_users:
         passenger = PassengerFactory.create(user=user)
@@ -24,3 +24,4 @@ def create_passengers_for_valid_user(db: Session):
         db.add(passenger)
 
     db.commit()
+    return "Passengers table it's being populated"

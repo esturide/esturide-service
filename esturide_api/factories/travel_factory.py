@@ -43,6 +43,8 @@ def create_single_travel(db: Session):
 def create_multiple_travels(db: Session, num_travels: int = 150):
     travel = db.query(Travel).first()
     if travel:
-        return "This table it's already populated"
+        return "Travels table it's already populated"
     for _ in range(num_travels):
         create_single_travel(db)
+
+    return "Travels table is being populated"

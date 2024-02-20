@@ -26,7 +26,7 @@ def create_automobiles(db: Session):
     automobile = db.query(Automobile).first()
 
     if automobile:
-        return "This table it's already populated"
+        return "Automobiles table it's already populated"
 
     drivers = db.query(Driver).all()
 
@@ -40,3 +40,4 @@ def create_automobiles(db: Session):
             db.add(automobile)
 
     db.commit()
+    return "Automobiles table it's being populated"
