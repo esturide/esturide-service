@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 
 from esturide_api import models, schemas
 from esturide_api.config import database
+from esturide_api.config.config import settings
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
@@ -17,9 +18,9 @@ the token,they are:
 - Algorithm
 - Expiration
 """
-SECRET_KEY = "ThisLaKeySecreta"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
+SECRET_KEY = settings.secret_key
+ALGORITHM = settings.algorithm
+ACCESS_TOKEN_EXPIRE_MINUTES = settings.access_token_expire_minutes
 
 
 def create_access_token(data: dict):
