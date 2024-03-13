@@ -1,10 +1,7 @@
 from typing import List
 
-from fastapi import Depends
-
-from esturide_api import oauth2
-from esturide_api.contexts.user.domain.model.user import UserOut
-from esturide_api.contexts.user.domain.service.user import UserService
+from esturide_api.contexts.user.domain.model.user_model import UserOut
+from esturide_api.contexts.user.domain.service.user_domain_service import UserService
 
 
 class UserApplicationService:
@@ -12,9 +9,11 @@ class UserApplicationService:
         self.user_service = user_service
 
     def get_user(
-        self, user_id: int, current_user=Depends(oauth2.get_current_user)
+        self,
+        user_id: int,
     ) -> UserOut:
-        return self.user_service.get_user(user_id)
+        user = self.user_service.get_user(user_id)
+        return user
 
-    def get_users(self, current_user=Depends(oauth2.get_current_user)) -> List[UserOut]:
+    def get_users(self) -> List[UserOut]:
         return self.user_service.get_users()
