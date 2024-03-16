@@ -16,7 +16,6 @@ def get_user(
     user_app_service: UserApplicationService = Depends(get_user_application_service),
     current_user=Depends(get_request_user),
 ):
-    print(current_user)
     return user_app_service.get_user(id)
 
 
@@ -25,5 +24,4 @@ def get_users(
     user_app_service: UserApplicationService = Depends(get_user_application_service),
     current_user=Depends(get_request_user),
 ):
-    print(current_user)
     return user_app_service.get_users()
