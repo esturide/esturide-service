@@ -18,3 +18,9 @@ class UserPostgresRepository(UserRepository):
 
     def get_all_users(self) -> List[dict]:
         return self.db.query(models.User).all()
+
+    def delete_user(self, id: int) -> dict:
+        user = self.db.query(models.User).filter(models.User.id == id)
+        user.delete(synchronize_session=False)
+        self.db.commit()
+        return {"message": f"User with id {id} was successfully deleted"}
