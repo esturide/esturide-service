@@ -39,8 +39,8 @@ def delete_user(
 @router.put("/{id}", response_model=UserOut)
 def update_user_put(
     id: int,
-    updated_user: UserUpdatePut,
+    updated_data: UserUpdatePut,
     user_app_service: UserApplicationService = Depends(get_user_application_service),
     current_user=Depends(get_request_user),
 ):
-    return user_app_service.update_user_put(id, updated_user)
+    return user_app_service.update_user_put(id, updated_data)

@@ -16,5 +16,5 @@ class UserRepository(ABC):
         pass
 
     @abstractmethod
-    def delete_user(self, id: int) -> dict:
+    def delete_user(self, id: int):
         pass

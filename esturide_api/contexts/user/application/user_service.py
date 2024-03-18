@@ -23,5 +23,5 @@ class UserApplicationService:
     ):
         return self.user_service.delete_user(user_id)
 
-    def update_user_put(self, user_id: int, updated_user: UserUpdatePut) -> UserOut:
-        return self.user_service.update_user_put(user_id, updated_user)
+    def update_user_put(self, user_id: int, updated_data: UserUpdatePut) -> UserOut:
+        return self.user_service.update_user_put(user_id, updated_data)
