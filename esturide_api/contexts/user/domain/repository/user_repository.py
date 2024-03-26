@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 from typing import List
 
 from esturide_api.contexts.user.domain.model.user_model import (
-    UserBase,
     UserCreate,
     UserUpdatePatch,
     UserUpdatePut,
@@ -31,15 +30,11 @@ class UserRepository(ABC):
         pass
 
     @abstractmethod
-    def update_user_put(self, id: int, updated_data: UserUpdatePut) -> dict:
+    def update_user(
+        self, id: int, updated_data: UserUpdatePut | UserUpdatePatch
+    ) -> dict:
         pass
 
     @abstractmethod
     def create_user(self, created_data: UserCreate) -> dict:
-        pass
-
-    @abstractmethod
-    def update_user_patch(
-        self, id: int, created_data: UserUpdatePatch, original_data: UserBase
-    ) -> dict:
         pass

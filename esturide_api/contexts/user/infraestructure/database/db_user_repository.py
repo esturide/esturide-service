@@ -4,7 +4,6 @@ from sqlalchemy.orm import Session
 
 from esturide_api import models, utils
 from esturide_api.contexts.user.domain.model.user_model import (
-    UserBase,
     UserCreate,
     UserUpdatePatch,
     UserUpdatePut,
@@ -33,9 +32,11 @@ class UserPostgresRepository(UserRepository):
         user.delete(synchronize_session=False)
         self.db.commit()
 
-    def update_user_put(self, user_id: int, updated_data: UserUpdatePut) -> dict:
+    def update_user(
+        self, user_id: int, updated_data: UserUpdatePut | UserUpdatePatch
+    ) -> dict:
         user_query = self.db.query(models.User).filter(models.User.id == user_id)
-        auxiliar_user = updated_data.dict()
+        auxiliar_user = {k: v for k, v in updated_data.dict().items() if v is not None}
         user_query.update(auxiliar_user, synchronize_session=False)
         self.db.commit()
         return user_query.first()
@@ -47,14 +48,3 @@ class UserPostgresRepository(UserRepository):
         self.db.add(new_user)
         self.db.commit()
         return new_user
-
-    def update_user_patch(
-        self, id: int, updated_data: UserUpdatePatch, original_data: UserBase
-    ) -> dict:
-        for field in updated_data.dict().keys():
-            if hasattr(models.User, field) and getattr(updated_data, field) is not None:
-                setattr(original_data, field, getattr(updated_data, field))
-
-        self.db.commit()
-        self.db.refresh(original_data)
-        return self.get_user_by_id(id)

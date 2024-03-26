@@ -33,7 +33,7 @@ class UserService:
             return {"message": "Email already registered"}
         if self.user_repository.get_user_by_curp(updated_data.curp):
             return {"message": "Curp already registered"}
-        return self.user_repository.update_user_put(user_id, updated_data)
+        return self.user_repository.update_user(user_id, updated_data)
 
     def create_user(self, created_data: UserCreate) -> UserOut:
         if self.user_repository.get_user_by_email(created_data.email):
@@ -49,5 +49,4 @@ class UserService:
             return {"message": "Email already registered"}
         if self.user_repository.get_user_by_curp(updated_data.curp):
             return {"message": "Curp already registered"}
-        original_user = self.user_repository.get_user_by_id(user_id)
-        return self.user_repository.update_user_patch(id, updated_data, original_user)
+        return self.user_repository.update_user(user_id, updated_data)
