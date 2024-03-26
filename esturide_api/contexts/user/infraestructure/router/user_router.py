@@ -32,6 +32,14 @@ def get_users(
     return user_app_service.get_users()
 
 
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=UserOut)
+def create_user(
+    user: UserCreate,
+    user_app_service: UserApplicationService = Depends(get_user_application_service),
+):
+    return user_app_service.create_user(user)
+
+
 @router.delete("/{id}", status_code=status.HTTP_200_OK)
 def delete_user(
     id: int,
@@ -48,14 +56,6 @@ def update_user_put(
     user_app_service: UserApplicationService = Depends(get_user_application_service),
 ):
     return user_app_service.update_user_put(id, updated_data)
-
-
-@router.post("/", status_code=status.HTTP_201_CREATED, response_model=UserOut)
-def create_user(
-    user: UserCreate,
-    user_app_service: UserApplicationService = Depends(get_user_application_service),
-):
-    return user_app_service.create_user(user)
 
 
 @router.patch("/{id}", response_model=UserOut)
