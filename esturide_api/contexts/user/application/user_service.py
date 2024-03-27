@@ -1,6 +1,11 @@
 from typing import List
 
-from esturide_api.contexts.user.domain.model.user_model import UserOut, UserUpdatePut
+from esturide_api.contexts.user.domain.model.user_model import (
+    UserCreate,
+    UserOut,
+    UserUpdatePatch,
+    UserUpdatePut,
+)
 from esturide_api.contexts.user.domain.service.user_domain_service import UserService
 
 
@@ -25,3 +30,9 @@ class UserApplicationService:
 
     def update_user_put(self, user_id: int, updated_data: UserUpdatePut) -> UserOut:
         return self.user_service.update_user_put(user_id, updated_data)
+
+    def create_user(self, created_data: UserCreate) -> UserOut:
+        return self.user_service.create_user(created_data)
+
+    def update_user_patch(self, user_id: int, updated_data: UserUpdatePatch) -> UserOut:
+        return self.user_service.update_user_patch(user_id, updated_data)
