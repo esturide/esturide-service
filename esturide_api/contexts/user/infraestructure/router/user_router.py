@@ -40,15 +40,6 @@ def create_user(
     return user_app_service.create_user(user)
 
 
-@router.delete("/{id}", status_code=status.HTTP_200_OK)
-def delete_user(
-    id: int,
-    user_app_service: UserApplicationService = Depends(get_user_application_service),
-    current_user=Depends(get_request_user),
-):
-    return user_app_service.delete_user(id)
-
-
 @router.put("/{id}", response_model=UserOut)
 def update_user_put(
     id: int,
@@ -66,3 +57,12 @@ def udpate_user_patch(
     current_user=Depends(get_request_user),
 ):
     return user_app_service.update_user_patch(id, updated_data)
+
+
+@router.delete("/{id}", status_code=status.HTTP_200_OK)
+def delete_user(
+    id: int,
+    user_app_service: UserApplicationService = Depends(get_user_application_service),
+    current_user=Depends(get_request_user),
+):
+    return user_app_service.delete_user(id)

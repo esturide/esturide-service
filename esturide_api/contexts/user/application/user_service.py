@@ -22,17 +22,17 @@ class UserApplicationService:
     def get_users(self) -> List[UserOut]:
         return self.user_service.get_users()
 
+    def create_user(self, created_data: UserCreate) -> UserOut:
+        return self.user_service.create_user(created_data)
+
+    def update_user_put(self, user_id: int, updated_data: UserUpdatePut) -> UserOut:
+        return self.user_service.update_user_put(user_id, updated_data)
+
+    def update_user_patch(self, user_id: int, updated_data: UserUpdatePatch) -> UserOut:
+        return self.user_service.update_user_patch(user_id, updated_data)
+
     def delete_user(
         self,
         user_id: int,
     ):
         return self.user_service.delete_user(user_id)
-
-    def update_user_put(self, user_id: int, updated_data: UserUpdatePut) -> UserOut:
-        return self.user_service.update_user_put(user_id, updated_data)
-
-    def create_user(self, created_data: UserCreate) -> UserOut:
-        return self.user_service.create_user(created_data)
-
-    def update_user_patch(self, user_id: int, updated_data: UserUpdatePatch) -> UserOut:
-        return self.user_service.update_user_patch(user_id, updated_data)
