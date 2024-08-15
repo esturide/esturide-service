@@ -14,9 +14,9 @@ router = APIRouter(prefix="/v2", tags=["Authentication"])
 
 @router.post("/login", response_model=Token)
 def login(
-    user_credentials: OAuth2PasswordRequestForm = Depends(),
-    authentication_app_service: AuthenticationApplicationService = Depends(
-        get_authentication_application_service
-    ),
+        user_credentials: OAuth2PasswordRequestForm = Depends(),
+        authentication_app_service: AuthenticationApplicationService = Depends(
+            get_authentication_application_service
+        ),
 ):
     return authentication_app_service.authenticate_user(user_credentials)

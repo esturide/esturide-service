@@ -47,8 +47,8 @@ def verify_access_token(token: OAuth2PasswordBearer, credentials_exception):
 
 
 def get_current_user(
-    token: OAuth2PasswordBearer = Depends(oauth2_scheme),
-    db: Session = Depends(database.get_db),
+        token: OAuth2PasswordBearer = Depends(oauth2_scheme),
+        db: Session = Depends(database.get_db),
 ):
     credentials_exception = HTTPException(
         status_code=status.HTTP_404_NOT_FOUND,

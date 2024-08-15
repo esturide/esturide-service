@@ -16,7 +16,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = settings.access_token_expire_minutes
 
 class AuthenticationService:
     def __init__(
-        self, user_repository: UserRepository, password_handler: PasswordHandler
+            self, user_repository: UserRepository, password_handler: PasswordHandler
     ):
         self.user_repository = user_repository
         self.password_handler = password_handler
@@ -25,7 +25,7 @@ class AuthenticationService:
         user = self.user_repository.get_user_by_email(user_credentials.username)
 
         if not user or not self.password_handler.verify(
-            user_credentials.password, user.password
+                user_credentials.password, user.password
         ):
             self.raise_invalid_credentials_error()
 

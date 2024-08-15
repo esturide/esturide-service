@@ -17,44 +17,44 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 @router.get("/", response_model=List[schemas.UserOut])
 def get_users(
-    db: Session = Depends(get_db), current_user=Depends(oauth2.get_current_user)
+        db: Session = Depends(get_db), current_user=Depends(oauth2.get_current_user)
 ):
     return user_functions.get_users_db(db)
 
 
 @router.get("/{id}", response_model=schemas.UserOut)
 def get_user(
-    id: int,
-    db: Session = Depends(get_db),
-    current_user=Depends(oauth2.get_current_user),
+        id: int,
+        db: Session = Depends(get_db),
+        current_user=Depends(oauth2.get_current_user),
 ):
     return user_functions.get_user_db(id, db)
 
 
 @router.put("/{id}", response_model=schemas.UserOut)
 def update_user_put(
-    id: int,
-    updated_user: schemas.UserUpdatePut,
-    db: Session = Depends(get_db),
-    current_user=Depends(oauth2.get_current_user),
+        id: int,
+        updated_user: schemas.UserUpdatePut,
+        db: Session = Depends(get_db),
+        current_user=Depends(oauth2.get_current_user),
 ):
     return user_functions.put_user_db(id, updated_user, db)
 
 
 @router.patch("/{id}", response_model=schemas.UserOut)
 def update_user_patch(
-    id: int,
-    updated_user: schemas.UserUpdatePatch,
-    db: Session = Depends(get_db),
-    current_user=Depends(oauth2.get_current_user),
+        id: int,
+        updated_user: schemas.UserUpdatePatch,
+        db: Session = Depends(get_db),
+        current_user=Depends(oauth2.get_current_user),
 ):
     return user_functions.patch_user_db(id, updated_user, db)
 
 
 @router.delete("/{id}", status_code=status.HTTP_200_OK)
 def delete_user(
-    id: int,
-    db: Session = Depends(get_db),
-    current_user=Depends(oauth2.get_current_user),
+        id: int,
+        db: Session = Depends(get_db),
+        current_user=Depends(oauth2.get_current_user),
 ):
     return user_functions.delete_user_db(db, id)

@@ -21,7 +21,6 @@ class UserFactory(Factory):
 
 
 def create_dummy_users(db: Session, num_users: int = 100):
-
     user = db.query(User).first()
 
     if user:

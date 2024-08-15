@@ -22,7 +22,7 @@ def get_user_repository(db: Session = Depends(get_db)):
 
 
 def get_authentication_application_service(
-    user_repository: UserRepository = Depends(get_user_repository),
+        user_repository: UserRepository = Depends(get_user_repository),
 ) -> AuthenticationApplicationService:
     return AuthenticationApplicationService(
         AuthenticationService(
@@ -33,9 +33,9 @@ def get_authentication_application_service(
 
 
 def get_request_user(
-    token: OAuth2PasswordBearer = Depends(OAuth2PasswordBearer(tokenUrl="v2/login")),
-    authentication_service: AuthenticationApplicationService = Depends(
-        get_authentication_application_service
-    ),
+        token: OAuth2PasswordBearer = Depends(OAuth2PasswordBearer(tokenUrl="v2/login")),
+        authentication_service: AuthenticationApplicationService = Depends(
+            get_authentication_application_service
+        ),
 ) -> UserOut:
     return authentication_service.get_request_user(token)

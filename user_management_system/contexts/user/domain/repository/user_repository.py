@@ -31,7 +31,7 @@ class UserRepository(ABC):
 
     @abstractmethod
     def update_user(
-        self, id: int, updated_data: UserUpdatePut | UserUpdatePatch
+            self, id: int, updated_data: UserUpdatePut | UserUpdatePatch
     ) -> dict:
         pass
 

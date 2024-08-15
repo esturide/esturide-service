@@ -33,7 +33,7 @@ class UserPostgresRepository(UserRepository):
         self.db.commit()
 
     def update_user(
-        self, user_id: int, updated_data: UserUpdatePut | UserUpdatePatch
+            self, user_id: int, updated_data: UserUpdatePut | UserUpdatePatch
     ) -> dict:
         user_query = self.db.query(models.User).filter(models.User.id == user_id)
         auxiliar_user = {k: v for k, v in updated_data.dict().items() if v is not None}

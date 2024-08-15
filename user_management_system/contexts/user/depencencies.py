@@ -16,6 +16,6 @@ def get_user_repository(db: Session = Depends(get_db)):
 
 
 def get_user_application_service(
-    user_repository: UserRepository = Depends(get_user_repository),
+        user_repository: UserRepository = Depends(get_user_repository),
 ) -> UserApplicationService:
     return UserApplicationService(user_repository)

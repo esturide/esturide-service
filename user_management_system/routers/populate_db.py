@@ -15,7 +15,6 @@ router = APIRouter(tags=["Populate"])
 
 @router.post("/populateDB")
 def populateDB(db: Session = Depends(get_db)):
-
     print(create_dummy_users(db))
     print(create_passengers_for_valid_user(db))
     print(create_dummy_drivers(db))

@@ -34,7 +34,6 @@ def create_automobiles(db: Session):
         num_automobiles = randint(1, 3)
 
         for _ in range(num_automobiles):
-
             automobile = AutomobileFactory.create(driver=driver)
 
             db.add(automobile)

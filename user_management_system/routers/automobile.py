@@ -11,7 +11,7 @@ router = APIRouter(prefix="/automobiles", tags=["Automobiles"])
 
 @router.get("/", response_model=List[schemas.AutomobileResponse])
 def get_automobiles(
-    db: Session = Depends(get_db), current_user=Depends(oauth2.get_current_user)
+        db: Session = Depends(get_db), current_user=Depends(oauth2.get_current_user)
 ):
     drivers = db.query(models.Automobile).all()
     return drivers
@@ -21,9 +21,9 @@ def get_automobiles(
     "/", status_code=status.HTTP_201_CREATED, response_model=schemas.AutomobileResponse
 )
 def create_automobile(
-    automobile: schemas.AutomobileCreate,
-    db: Session = Depends(get_db),
-    current_user=Depends(oauth2.get_current_user),
+        automobile: schemas.AutomobileCreate,
+        db: Session = Depends(get_db),
+        current_user=Depends(oauth2.get_current_user),
 ):
     driver = db.query(models.Driver).filter(models.Driver.id == current_user.id).first()
 
@@ -43,9 +43,9 @@ def create_automobile(
 
 @router.get("/{id}", response_model=schemas.AutomobileResponse)
 def get_automobile_by_id(
-    id: int,
-    db: Session = Depends(get_db),
-    current_user=Depends(oauth2.get_current_user),
+        id: int,
+        db: Session = Depends(get_db),
+        current_user=Depends(oauth2.get_current_user),
 ):
     automobile = db.query(models.Automobile).filter(models.Automobile.id == id).first()
     if not automobile:
@@ -58,9 +58,9 @@ def get_automobile_by_id(
 
 @router.delete("/{id}", status_code=status.HTTP_200_OK)
 def delete_automobile(
-    id: int,
-    db: Session = Depends(get_db),
-    current_user=Depends(oauth2.get_current_user),
+        id: int,
+        db: Session = Depends(get_db),
+        current_user=Depends(oauth2.get_current_user),
 ):
     automobile = db.query(models.Automobile).filter(models.Automobile.id == id).first()
     if not automobile:

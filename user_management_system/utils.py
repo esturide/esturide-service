@@ -28,7 +28,7 @@ def validate_age(birth_date: date):
 
 
 def check_existence_by_criteria(
-    db: Session, model_name: str, criteria: dict, error_message: str
+        db: Session, model_name: str, criteria: dict, error_message: str
 ):
     model = getattr(models, model_name)
     existing_record = db.query(model).filter_by(**criteria).first()
