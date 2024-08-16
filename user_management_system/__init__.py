@@ -29,6 +29,11 @@ user_management_system_service.include_router(v2_user_router)
 user_management_system_service.include_router(v2_authorization_router)
 
 
+@user_management_system_service.get("/")
+def index():
+    return {"message": "Hello World from 'User Management System'"}
+
+
 @user_management_system_service.exception_handler(UserServiceValidationError)
 def user_service_validation_exception_handler(request, exc: UserServiceValidationError):
     raise HTTPException(status_code=400, detail=str(exc))

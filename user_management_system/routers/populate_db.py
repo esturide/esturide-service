@@ -10,22 +10,23 @@ from user_management_system.factories.user_factory import create_dummy_users
 from user_management_system.factories.user_score_factory import generate_user_scores
 from user_management_system.models import Automobile, Driver, Passenger, Travel, User, UserScore
 
-router = APIRouter(tags=["Populate"])
+router = APIRouter(tags=["Factories"])
 
 
-@router.post("/populateDB")
-def populateDB(db: Session = Depends(get_db)):
+@router.post("/populate")
+def populate_db(db: Session = Depends(get_db)):
     print(create_dummy_users(db))
     print(create_passengers_for_valid_user(db))
     print(create_dummy_drivers(db))
     print(create_automobiles(db))
     print(create_multiple_travels(db))
     print(generate_user_scores(db))
+
     return {"message": "DB populated"}
 
 
-@router.delete("/clearDB")
-def clearDB(db: Session = Depends(get_db)):
+@router.delete("/clear")
+def clear_db(db: Session = Depends(get_db)):
     db.query(UserScore).delete()
     db.query(Travel).delete()
     db.query(Automobile).delete()
@@ -33,4 +34,5 @@ def clearDB(db: Session = Depends(get_db)):
     db.query(Passenger).delete()
     db.query(User).delete()
     db.commit()
+
     return {"message": "DB cleared"}
