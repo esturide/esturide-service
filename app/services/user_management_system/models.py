@@ -12,7 +12,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship
 
-from app.services.user_management_system.config.database import Base
+from app.core.database import Base
 
 
 class User(Base):

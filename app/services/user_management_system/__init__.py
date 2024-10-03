@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 
 from app.services.user_management_system import models
-from app.services.user_management_system.config.database import engine
+from app.core.database import engine
 from app.services.user_management_system.contexts.user.domain.errors import UserServiceValidationError
 from app.services.user_management_system.contexts.user.infraestructure.router.user_router import (
     router as v2_user_router,

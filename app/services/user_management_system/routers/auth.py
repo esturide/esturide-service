@@ -3,7 +3,7 @@ from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
 from app.services.user_management_system import utils, models, oauth2, schemas
-from app.services.user_management_system.config import database
+from app.core import database
 
 router = APIRouter(tags=["Authentication"])
 

@@ -4,7 +4,7 @@ from fastapi import HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 
-from app.services.user_management_system.config.config import settings
+from app.core.config import settings
 from app.services.user_management_system.contexts.user.domain.model.user_model import UserOut
 from app.services.user_management_system.contexts.user.domain.repository.user_repository import UserRepository
 from app.services.user_management_system.shared.authentication.infraestructure.oauth import PasswordHandler
