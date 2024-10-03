@@ -6,3 +6,4 @@ pytest
 psycopg2
 factory_boy
 faker
+mypy
