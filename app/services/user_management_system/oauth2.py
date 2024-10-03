@@ -1,54 +1,12 @@
-from datetime import datetime, timedelta
-
-from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
-from jose import JWTError, jwt
-from sqlalchemy.orm import Session
-
-from app.core.config import settings
-from app.services.user_management_system import models, schemas
-from app.shared import database
-
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
-
-"""
-There are 3 pieces of information that we need for
-the token,they are:
-- Secret_key
-- Algorithm
-- Expiration
-"""
-SECRET_KEY = settings.secret_key
-ALGORITHM = settings.algorithm
-ACCESS_TOKEN_EXPIRE_MINUTES = settings.access_token_expire_minutes
-
-
-def create_access_token(data: dict):
-    to_encode = data.copy()
-
-    expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    to_encode.update({"exp": expire})
-
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-
-    return encoded_jwt
-
-
-def verify_access_token(token: OAuth2PasswordBearer, credentials_exception):
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        user_id = str(payload.get("user_id"))
-        if user_id is None:
-            raise credentials_exception
-        token_data = schemas.TokenData(id=user_id)
-    except JWTError:
-        raise credentials_exception
-    return token_data
+from fastapi import HTTPException, status
+from app.services.user_management_system import models
+from app.shared.credentials import verify_access_token
+from app.shared.dependencies import OAuth2BearerDepend, DataBaseSession
 
 
 def get_current_user(
-        token: OAuth2PasswordBearer = Depends(oauth2_scheme),
-        db: Session = Depends(database.get_db),
+        token: OAuth2BearerDepend,
+        db: DataBaseSession,
 ):
     credentials_exception = HTTPException(
         status_code=status.HTTP_404_NOT_FOUND,
