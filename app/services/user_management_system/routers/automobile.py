@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.services.user_management_system import models, oauth2, schemas
-from app.core.database import get_db
+from app.shared.database import get_db
 
 router = APIRouter(prefix="/automobiles", tags=["Automobiles"])
 

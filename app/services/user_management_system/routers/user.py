@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 
 from app.services.user_management_system import oauth2, schemas
-from app.core.database import get_db
+from app.shared.database import get_db
 from app.services.user_management_system.crud import db_user as user_functions
 
 router = APIRouter(prefix="/users", tags=["Users"])

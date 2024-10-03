@@ -2,7 +2,7 @@ from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 
-from app.core.database import get_db
+from app.shared.database import get_db
 from app.services.user_management_system.contexts.user.domain.model.user_model import UserOut
 from app.services.user_management_system.contexts.user.domain.repository.user_repository import UserRepository
 from app.services.user_management_system.contexts.user.infraestructure.database.db_user_repository import (

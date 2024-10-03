@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from app.core.database import get_db
+from app.shared.database import get_db
 from app.services.user_management_system.factories.automobile_factory import create_automobiles
 from app.services.user_management_system.factories.driver_factory import create_dummy_drivers
 from app.services.user_management_system.factories.passenger_factory import create_passengers_for_valid_user
