@@ -3,7 +3,8 @@ from random import choice
 from factory import Factory, Faker, Sequence
 from sqlalchemy.orm import Session
 
-from app.services.user_management_system.models import Automobile, Driver, Passenger, Travel
+from app.services.user_management_system.models import Automobile, Driver, Passenger
+from app.services.user_match_network_system.domain.models import Travel
 
 
 class TravelFactory(Factory):
