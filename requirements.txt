@@ -6,3 +6,5 @@ pytest
 psycopg2
 factory_boy
 faker
+mypy
+pydantic-settings~=2.5.2
