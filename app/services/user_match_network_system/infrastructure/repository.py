@@ -2,7 +2,7 @@ from typing import Tuple
 
 from sqlalchemy.orm import Session
 
-from app.services.user_match_network_system.domain.models import Travel, UserScore
+from app.shared.domain.models.user_match_network_system import Travel, UserScore
 
 
 class UserScoreRepository:

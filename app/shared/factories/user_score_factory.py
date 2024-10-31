@@ -3,7 +3,7 @@ from random import randint
 from factory import Factory, Faker, Sequence
 from sqlalchemy.orm import Session
 
-from app.services.user_match_network_system.domain.models import UserScore, Travel
+from app.shared.domain.models.user_match_network_system import UserScore, Travel
 
 
 class UserScoreFactory(Factory):
