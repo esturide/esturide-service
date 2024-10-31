@@ -2,7 +2,6 @@ from sqlalchemy import (
     Column,
     DateTime,
     Enum,
-    Float,
     ForeignKey,
     Integer,
     String,
@@ -11,6 +10,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 
 from app.shared.database import Base
+
 
 class UserScore(Base):
     __tablename__ = "user_scores"
