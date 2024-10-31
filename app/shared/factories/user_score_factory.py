@@ -3,7 +3,7 @@ from random import randint
 from factory import Factory, Faker, Sequence
 from sqlalchemy.orm import Session
 
-from app.shared.domain.models.user_match_network_system import UserScore, Travel
+from app.shared.domain.models.user_match_network_system import UserScore, TravelSchedule
 
 
 class UserScoreFactory(Factory):
@@ -25,7 +25,7 @@ def generate_user_scores(db: Session):
     if user_score:
         return "User scores table it's already populated."
 
-    travels = db.query(Travel).all()
+    travels = db.query(TravelSchedule).all()
 
     for travel in travels:
         existing_score = (

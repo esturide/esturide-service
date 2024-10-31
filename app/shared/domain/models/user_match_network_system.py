@@ -23,26 +23,23 @@ class UserScore(Base):
     passenger = relationship("Passenger", back_populates="user_score")
 
 
-class Travel(Base):
-    __tablename__ = "travels"
+class TravelSchedule(Base):
+    __tablename__ = "travel_schedule"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
 
-    passenger_id = Column(Integer, ForeignKey("passengers.id"), nullable=False)
-    driver_id = Column(
-        Integer, ForeignKey("drivers.id"), nullable=False, primary_key=True
-    )
+    driver_id = Column(Integer, ForeignKey("drivers.id"), nullable=False, primary_key=True)
     automobile_id = Column(Integer, ForeignKey("automobiles.id"), nullable=False)
 
-    price = Column(Float, nullable=False)
+    price = Column(Integer, nullable=False)
 
     initial_datetime = Column(DateTime, nullable=False)
     final_datetime = Column(DateTime, nullable=False)
+
     initial_location = Column(String, nullable=False)
     final_location = Column(String, nullable=False)
 
     driver = relationship("Driver", back_populates="travel")
-    passenger = relationship("Passenger", back_populates="travel")
     automobiles = relationship("Automobile", back_populates="travel")
 
 
@@ -53,8 +50,19 @@ class Ride:
 
     passenger_id = Column(Integer, ForeignKey("passengers.id"), nullable=False)
 
-    price = Column(Float, nullable=False)
+    proposed_price = Column(Integer, nullable=False)
 
     initial_datetime = Column(DateTime, nullable=False)
 
     passenger = relationship("Passenger", back_populates="rides")
+
+
+class Travel:
+    __tablename__ = "travelrequests"
+
+    id = Column(Integer, primary_key=True)
+
+    passenger_id = Column(Integer, ForeignKey("passengers.id"), nullable=False)
+    travels_id = Column(Integer, ForeignKey("travels.id"), nullable=False)
+
+    initial_datetime = Column(DateTime, nullable=False)
