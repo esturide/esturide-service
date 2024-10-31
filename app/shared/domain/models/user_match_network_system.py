@@ -44,3 +44,17 @@ class Travel(Base):
     driver = relationship("Driver", back_populates="travel")
     passenger = relationship("Passenger", back_populates="travel")
     automobiles = relationship("Automobile", back_populates="travel")
+
+
+class Ride:
+    __tablename__ = "rides"
+
+    id = Column(Integer, primary_key=True)
+
+    passenger_id = Column(Integer, ForeignKey("passengers.id"), nullable=False)
+
+    price = Column(Float, nullable=False)
+
+    initial_datetime = Column(DateTime, nullable=False)
+
+    passenger = relationship("Passenger", back_populates="rides")

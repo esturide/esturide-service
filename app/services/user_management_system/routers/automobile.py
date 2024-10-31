@@ -3,8 +3,9 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
-from app.services.user_management_system import models, oauth2, schemas
+from app.services.user_management_system import oauth2, schemas
 from app.shared.database import get_db
+from app.shared.domain.models.user_management_system import Automobile, Driver
 
 router = APIRouter(prefix="/automobiles", tags=["Automobiles"])
 
@@ -13,7 +14,7 @@ router = APIRouter(prefix="/automobiles", tags=["Automobiles"])
 def get_automobiles(
         db: Session = Depends(get_db), current_user=Depends(oauth2.get_current_user)
 ):
-    drivers = db.query(models.Automobile).all()
+    drivers = db.query(Automobile).all()
     return drivers
 
 
@@ -25,14 +26,14 @@ def create_automobile(
         db: Session = Depends(get_db),
         current_user=Depends(oauth2.get_current_user),
 ):
-    driver = db.query(models.Driver).filter(models.Driver.id == current_user.id).first()
+    driver = db.query(Driver).filter(Driver.id == current_user.id).first()
 
     if not driver:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN, detail="You are not yet a driver"
         )
 
-    new_automobile = models.Automobile(**automobile.dict(), driver_id=current_user.id)
+    new_automobile = Automobile(**automobile.dict(), driver_id=current_user.id)
 
     db.add(new_automobile)
     db.commit()
@@ -47,7 +48,7 @@ def get_automobile_by_id(
         db: Session = Depends(get_db),
         current_user=Depends(oauth2.get_current_user),
 ):
-    automobile = db.query(models.Automobile).filter(models.Automobile.id == id).first()
+    automobile = db.query(Automobile).filter(Automobile.id == id).first()
     if not automobile:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -62,7 +63,7 @@ def delete_automobile(
         db: Session = Depends(get_db),
         current_user=Depends(oauth2.get_current_user),
 ):
-    automobile = db.query(models.Automobile).filter(models.Automobile.id == id).first()
+    automobile = db.query(Automobile).filter(Automobile.id == id).first()
     if not automobile:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

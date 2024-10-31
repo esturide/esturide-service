@@ -3,7 +3,7 @@ from random import randint
 from factory import Factory, Faker, Sequence
 from sqlalchemy.orm import Session
 
-from app.services.user_management_system.models import Automobile, Driver
+from app.shared.domain.models.user_management_system import Automobile, Driver
 
 
 class AutomobileFactory(Factory):

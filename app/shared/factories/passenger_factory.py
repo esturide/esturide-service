@@ -1,7 +1,7 @@
 from factory import Factory
 from sqlalchemy.orm import Session
 
-from app.services.user_management_system.models import Passenger, User
+from app.shared.domain.models.user_management_system import Passenger, User
 
 
 class PassengerFactory(Factory):

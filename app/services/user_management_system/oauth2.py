@@ -1,5 +1,4 @@
 from fastapi import HTTPException, status
-from app.services.user_management_system import models
 from app.shared.credentials import verify_access_token
 from app.shared.dependencies import OAuth2BearerDepend, DataBaseSession
 
