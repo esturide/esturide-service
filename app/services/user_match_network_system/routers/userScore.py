@@ -12,7 +12,7 @@ from app.shared.database import get_db
 
 router = APIRouter(prefix="/user_score", tags=["user_score"])
 
-# Rutas para UserScores
+
 @router.get("/", response_model=List[UserScoreRead])
 def get_user_scores(
     db: Session = Depends(get_db),

@@ -28,3 +28,11 @@ class TravelCreate(BaseModel):
 
 class TravelRead(TravelCreate):
     id: int
+
+
+class TravelUpdate(BaseModel):
+    price: float | None = None
+    initial_datetime: datetime | None = None
+    final_datetime: datetime | None = None
+    initial_location: str | None = None
+    final_location: str | None = None
