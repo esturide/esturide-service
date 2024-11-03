@@ -1,21 +1,13 @@
-from sqlalchemy import (
-    Column,
-    DateTime,
-    Enum,
-    Float,
-    ForeignKey,
-    Integer,
-    String,
-    Text,
-)
+from sqlalchemy import Column, DateTime, Enum, Float, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
 
 from app.shared.database import Base
 
+
 class UserScore(Base):
     __tablename__ = "user_scores"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
 
     passenger_id = Column(Integer, ForeignKey("passengers.id"), nullable=False)
     driver_id = Column(Integer, ForeignKey("drivers.id"), nullable=False)
@@ -34,10 +26,12 @@ class UserScore(Base):
 class Travel(Base):
     __tablename__ = "travels"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
 
     passenger_id = Column(Integer, ForeignKey("passengers.id"), nullable=False)
-    driver_id = Column(Integer, ForeignKey("drivers.id"), nullable=False, primary_key=True)
+    driver_id = Column(
+        Integer, ForeignKey("drivers.id"), nullable=False, primary_key=True
+    )
     automobile_id = Column(Integer, ForeignKey("automobiles.id"), nullable=False)
 
     price = Column(Float, nullable=False)
