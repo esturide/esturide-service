@@ -23,6 +23,14 @@ class UserScore(Base):
     passenger = relationship("Passenger", back_populates="user_score")
 
 
+class PassengerScore(Base):
+    pass
+
+
+class DriverScore(Base):
+    pass
+
+
 class TravelSchedule(Base):
     __tablename__ = "travel_schedule"
 
@@ -33,36 +41,63 @@ class TravelSchedule(Base):
 
     price = Column(Integer, nullable=False)
 
-    initial_datetime = Column(DateTime, nullable=False)
-    final_datetime = Column(DateTime, nullable=False)
-
-    initial_location = Column(String, nullable=False)
-    final_location = Column(String, nullable=False)
-
     driver = relationship("Driver", back_populates="travel")
     automobiles = relationship("Automobile", back_populates="travel")
 
 
-class Ride:
-    __tablename__ = "rides"
+class RideRequest(Base):
+    __tablename__ = "ride_request"
+
+    record_id = Column(Integer, ForeignKey("monitoring_record.id"), nullable=False)
+    passenger_id = Column(Integer, ForeignKey("passanger.id"), nullable=False)
+
+    passenger = relationship("Passenger", back_populates="ride_request")
+    record = relationship("MonitoringRecord", back_populates="ride_request")
+
+
+class TravelMatch(Base):
+    __tablename__ = "travel_match"
 
     id = Column(Integer, primary_key=True)
 
-    passenger_id = Column(Integer, ForeignKey("passengers.id"), nullable=False)
+    record_id = Column(Integer, ForeignKey("monitoring_record.id"), nullable=False)
+    travel_id = Column(Integer, ForeignKey("travel_schedule.id"), nullable=False)
+    ride_id = Column(Integer, ForeignKey("ride_request.id"), nullable=False)
 
-    proposed_price = Column(Integer, nullable=False)
-
-    initial_datetime = Column(DateTime, nullable=False)
-
-    passenger = relationship("Passenger", back_populates="rides")
+    record = relationship("Passenger", back_populates="travel_match")
+    travel = relationship("TravelSchedule", back_populates="travel_match")
+    ride = relationship("RideRequest", back_populates="travel_match")
 
 
-class Travel:
-    __tablename__ = "travelrequests"
+class TravelRoute(Base):
+    __tablename__ = "travel_route"
 
     id = Column(Integer, primary_key=True)
 
-    passenger_id = Column(Integer, ForeignKey("passengers.id"), nullable=False)
-    travels_id = Column(Integer, ForeignKey("travels.id"), nullable=False)
+    schedule_id = Column(Integer, ForeignKey("travel_schedule.id"), nullable=False)
+    matching_id = Column(Integer, ForeignKey("travel_match.id"), nullable=True)
+    tracking_id = Column(Integer, ForeignKey("tracking_records.id"), nullable=True)
 
-    initial_datetime = Column(DateTime, nullable=False)
+    schedule = relationship("TravelSchedule", back_populates="travel_route")
+    matching = relationship("TravelMatch", back_populates="travel_route")
+    tracking = relationship("TrackingRecord", back_populates="travel_route")
+
+
+class MonitoringRecord(Base):
+    __tablename__ = "monitoring_records"
+
+    id = Column(Integer, primary_key=True)
+
+    time = Column(DateTime, nullable=False)
+    ubication = Column(String, nullable=False)
+    latitude = Column(Float, nullable=False)
+    longitude = Column(Float, nullable=False)
+
+
+class TrackingRecord(Base):
+    __tablename__ = "tracking_records"
+
+    id = Column(Integer, primary_key=True)
+    time = Column(DateTime, nullable=False)
+    latitude = Column(Float, nullable=False)
+    longitude = Column(Float, nullable=False)
