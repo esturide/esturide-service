@@ -58,7 +58,7 @@ class RideRequest(Base):
 class TravelMatch(Base):
     __tablename__ = "travel_match"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
 
     record_id = Column(Integer, ForeignKey("monitoring_record.id"), nullable=False)
     travel_id = Column(Integer, ForeignKey("travel_schedule.id"), nullable=False)
@@ -72,7 +72,7 @@ class TravelMatch(Base):
 class TravelRoute(Base):
     __tablename__ = "travel_route"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
 
     schedule_id = Column(Integer, ForeignKey("travel_schedule.id"), nullable=False)
     matching_id = Column(Integer, ForeignKey("travel_match.id"), nullable=True)
@@ -86,7 +86,7 @@ class TravelRoute(Base):
 class MonitoringRecord(Base):
     __tablename__ = "monitoring_records"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
 
     time = Column(DateTime, nullable=False)
     ubication = Column(String, nullable=False)
@@ -97,7 +97,8 @@ class MonitoringRecord(Base):
 class TrackingRecord(Base):
     __tablename__ = "tracking_records"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+
     time = Column(DateTime, nullable=False)
     latitude = Column(Float, nullable=False)
     longitude = Column(Float, nullable=False)
