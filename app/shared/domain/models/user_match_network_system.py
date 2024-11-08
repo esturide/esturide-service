@@ -1,4 +1,15 @@
-from sqlalchemy import Column, DateTime, Enum, Float, ForeignKey, Integer, String, Text
+from datetime import datetime
+
+from sqlalchemy import (
+    Column,
+    DateTime,
+    Enum,
+    Float,
+    ForeignKey,
+    Integer,
+    String,
+    Text, Boolean,
+)
 from sqlalchemy.orm import relationship
 
 from app.shared.database import Base
@@ -48,17 +59,20 @@ class TravelSchedule(Base):
 class RideRequest(Base):
     __tablename__ = "ride_request"
 
-    record_id = Column(Integer, ForeignKey("monitoring_record.id"), nullable=False)
     passenger_id = Column(Integer, ForeignKey("passanger.id"), nullable=False)
 
+    time = Column(DateTime, nullable=False, default=datetime.utcnow)
+
     passenger = relationship("Passenger", back_populates="ride_request")
-    record = relationship("MonitoringRecord", back_populates="ride_request")
 
 
 class TravelMatch(Base):
     __tablename__ = "travel_match"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
+
+    validate = Column(Boolean, default=False)
+    cancel = Column(Boolean, default=False)
 
     record_id = Column(Integer, ForeignKey("monitoring_record.id"), nullable=False)
     travel_id = Column(Integer, ForeignKey("travel_schedule.id"), nullable=False)
@@ -73,6 +87,12 @@ class TravelRoute(Base):
     __tablename__ = "travel_route"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
+
+    active = Column(Boolean, default=False)
+    terminate = Column(Boolean, default=False)
+    cancel = Column(Boolean, default=False)
+
+    max_passanger = Column(Integer, nullable=False, default=3)
 
     schedule_id = Column(Integer, ForeignKey("travel_schedule.id"), nullable=False)
     matching_id = Column(Integer, ForeignKey("travel_match.id"), nullable=True)
