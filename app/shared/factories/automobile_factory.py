@@ -39,4 +39,5 @@ def create_automobiles(db: Session):
             db.add(automobile)
 
     db.commit()
+
     return "Automobiles table it's being populated"
