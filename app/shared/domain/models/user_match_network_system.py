@@ -92,7 +92,7 @@ class TravelRoute(Base):
     terminate = Column(Boolean, default=False)
     cancel = Column(Boolean, default=False)
 
-    max_passanger = Column(Integer, nullable=False, default=3)
+    max_passenger = Column(Integer, nullable=False, default=3)
 
     schedule_id = Column(Integer, ForeignKey("travel_schedule.id"), nullable=False)
     matching_id = Column(Integer, ForeignKey("travel_match.id"), nullable=True)
@@ -109,7 +109,7 @@ class MonitoringRecord(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
 
     time = Column(DateTime, nullable=False)
-    ubication = Column(String, nullable=False)
+    location = Column(String, nullable=False)
     latitude = Column(Float, nullable=False)
     longitude = Column(Float, nullable=False)
 
