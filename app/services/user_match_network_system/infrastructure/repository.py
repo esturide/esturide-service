@@ -2,7 +2,7 @@ from typing import Tuple
 
 from sqlalchemy.orm import Session
 
-from app.services.user_match_network_system.domain.models import Travel, UserScore
+from app.shared.domain.models.user_match_network_system import TravelSchedule, UserScore
 
 
 class UserScoreRepository:
@@ -32,8 +32,8 @@ class TravelRepository:
 
     async def create(
         self, passenger_id: int, driver_id: int, automobile_id: int, price: float
-    ) -> Tuple[bool, Travel]:
-        travel = Travel(
+    ) -> Tuple[bool, TravelSchedule]:
+        travel = TravelSchedule(
             passenger_id=passenger_id,
             driver_id=driver_id,
             automobile_id=automobile_id,

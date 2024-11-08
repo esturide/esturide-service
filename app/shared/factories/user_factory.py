@@ -2,7 +2,7 @@ from bcrypt import gensalt, hashpw
 from factory import Factory, Faker, Sequence
 from sqlalchemy.orm import Session
 
-from app.services.user_management_system.models import User
+from app.shared.domain.models.user_management_system import User
 
 
 class UserFactory(Factory):

@@ -3,13 +3,13 @@ from random import choice
 from factory import Factory, Faker, Sequence
 from sqlalchemy.orm import Session
 
-from app.services.user_management_system.models import Automobile, Driver, Passenger
-from app.services.user_match_network_system.domain.models import Travel
+from app.shared.domain.models.user_management_system import Automobile, Driver, Passenger
+from app.shared.domain.models.user_match_network_system import TravelSchedule
 
 
 class TravelFactory(Factory):
     class Meta:
-        model = Travel
+        model = TravelSchedule
 
     id = Sequence(lambda n: n)
     driver_id = None
@@ -42,7 +42,7 @@ def create_single_travel(db: Session):
 
 
 def create_multiple_travels(db: Session, num_travels: int = 150):
-    travel = db.query(Travel).first()
+    travel = db.query(TravelSchedule).first()
     if travel:
         return "Travels table it's already populated"
     for _ in range(num_travels):

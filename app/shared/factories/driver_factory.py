@@ -1,7 +1,7 @@
 from factory import Factory
 from sqlalchemy.orm import Session
 
-from app.services.user_management_system.models import Driver, User
+from app.shared.domain.models.user_management_system import Driver, User
 
 
 class DriverFactory(Factory):

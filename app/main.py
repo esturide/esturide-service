@@ -2,9 +2,9 @@ from fastapi import APIRouter
 from fastapi import FastAPI
 
 from app.services.user_management_system import user_management_system_service
-from app.services.user_management_system.models import Automobile, Driver, Passenger, User
+from app.shared.domain.models.user_management_system import Automobile, Driver, Passenger, User
 from app.services.user_match_network_system import user_match_network_system_service
-from app.services.user_match_network_system.domain.models import UserScore, Travel
+from app.shared.domain.models.user_match_network_system import UserScore, TravelSchedule
 from app.shared.dependencies import DataBaseSession
 from app.shared.factories.automobile_factory import create_automobiles
 from app.shared.factories.driver_factory import create_dummy_drivers
@@ -50,7 +50,7 @@ def populate_db(db: DataBaseSession):
 @root.delete("/clear")
 def clear_db(db: DataBaseSession):
     db.query(UserScore).delete()
-    db.query(Travel).delete()
+    db.query(TravelSchedule).delete()
     db.query(Automobile).delete()
     db.query(Driver).delete()
     db.query(Passenger).delete()
