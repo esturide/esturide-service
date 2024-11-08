@@ -35,15 +35,19 @@ class UserScore(Base):
 
 
 class PassengerScore(Base):
-    pass
+    __tablename__ = "passenger_scores"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
 
 
 class DriverScore(Base):
-    pass
+    __tablename__ = "driver_score"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
 
 
 class TravelSchedule(Base):
-    __tablename__ = "travel_schedule"
+    __tablename__ = "travel_schedules"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
 
@@ -59,7 +63,9 @@ class TravelSchedule(Base):
 class RideRequest(Base):
     __tablename__ = "ride_request"
 
-    passenger_id = Column(Integer, ForeignKey("passanger.id"), nullable=False)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+
+    passenger_id = Column(Integer, ForeignKey("passengers.id"), nullable=False)
 
     time = Column(DateTime, nullable=False, default=datetime.utcnow)
 
@@ -74,8 +80,8 @@ class TravelMatch(Base):
     validate = Column(Boolean, default=False)
     cancel = Column(Boolean, default=False)
 
-    record_id = Column(Integer, ForeignKey("monitoring_record.id"), nullable=False)
-    travel_id = Column(Integer, ForeignKey("travel_schedule.id"), nullable=False)
+    record_id = Column(Integer, ForeignKey("monitoring_records.id"), nullable=False)
+    travel_id = Column(Integer, ForeignKey("travel_schedules.id"), nullable=False)
     ride_id = Column(Integer, ForeignKey("ride_request.id"), nullable=False)
 
     record = relationship("Passenger", back_populates="travel_match")
@@ -94,7 +100,7 @@ class TravelRoute(Base):
 
     max_passenger = Column(Integer, nullable=False, default=3)
 
-    schedule_id = Column(Integer, ForeignKey("travel_schedule.id"), nullable=False)
+    schedule_id = Column(Integer, ForeignKey("travel_schedules.id"), nullable=False)
     matching_id = Column(Integer, ForeignKey("travel_match.id"), nullable=True)
     tracking_id = Column(Integer, ForeignKey("tracking_records.id"), nullable=True)
 
